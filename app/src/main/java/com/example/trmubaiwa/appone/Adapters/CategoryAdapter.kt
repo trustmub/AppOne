@@ -8,8 +8,6 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import com.example.trmubaiwa.appone.Models.Category
 import com.example.trmubaiwa.appone.R
-import kotlinx.android.synthetic.main.activity_shop.*
-import org.w3c.dom.Text
 
 
 class CategoryAdapter constructor(private val context: Context, private val categories: List<Category>) : BaseAdapter() {
@@ -17,13 +15,27 @@ class CategoryAdapter constructor(private val context: Context, private val cate
 
     /***/
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val categoryView: View = LayoutInflater.from(context).inflate(R.layout.category_list_item, null)
+        val categoryView: View
+        val holder: ViewHolder
 
-        val categoryName: TextView = categoryView.findViewById(R.id.nameTextView)
-        val categoryImage: TextView = categoryView.findViewById(R.id.emailsText)
+        if (convertView == null) {
+            categoryView = LayoutInflater.from(context).inflate(R.layout.category_list_item, null)
+            holder = ViewHolder()
+
+            holder.categoryImage = categoryView.findViewById(R.id.emailsText)
+            holder.categoryName = categoryView.findViewById(R.id.nameTextView)
+            categoryView.tag = holder
+
+
+        } else {
+            holder = convertView.tag as ViewHolder
+            categoryView = convertView
+        }
+
         val category = categories[position]
-        categoryName.text = category.title
-        categoryImage.text = category.image
+
+        holder.categoryName?.text = category.title
+        holder.categoryImage?.text = category.image
 
         return categoryView
     }
@@ -42,5 +54,10 @@ class CategoryAdapter constructor(private val context: Context, private val cate
     /** return the number of rows in the list */
     override fun getCount(): Int {
         return categories.count()
+    }
+
+    inner class ViewHolder {
+        var categoryImage: TextView? = null
+        var categoryName: TextView? = null
     }
 }
