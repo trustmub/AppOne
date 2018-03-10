@@ -26,7 +26,6 @@ class ShopActivity : AppCompatActivity() {
         categoryListView.layoutManager = layoutManager
         categoryListView.setHasFixedSize(true)
 
-
     }
 
     fun isNetworkAvailable(): Boolean {
