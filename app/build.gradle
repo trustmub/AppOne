@@ -51,4 +51,10 @@ dependencies {
 
     // if you are not using support library, include this instead
     compile "com.google.dagger:dagger-android:$project.daggerVersion"
+
+    /** Anko library */
+    compile "org.jetbrains.anko:anko-commons:$anko_version"
+    compile "org.jetbrains.anko:anko-design:$anko_version" // For SnackBars
+
+    compile 'com.android.support:recyclerview-v7:26.1.0'
 }
