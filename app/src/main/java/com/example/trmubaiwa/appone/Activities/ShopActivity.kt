@@ -4,29 +4,27 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.example.trmubaiwa.appone.Adapters.CategoryAdapter
+import android.support.v7.widget.LinearLayoutManager
+import com.example.trmubaiwa.appone.Adapters.CategoryRecycleAdapter
 import com.example.trmubaiwa.appone.R
 import com.example.trmubaiwa.appone.Services.DataService
 import kotlinx.android.synthetic.main.activity_shop.*
-import org.jetbrains.anko.longToast
 
 class ShopActivity : AppCompatActivity() {
 
-    private lateinit var adapter: CategoryAdapter
+    private lateinit var adapter: CategoryRecycleAdapter
+    private lateinit var layoutManager: LinearLayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shop)
 
-        adapter = CategoryAdapter(this,DataService.categories)
-
+        adapter = CategoryRecycleAdapter(this, DataService.categories)
         categoryListView.adapter = adapter
 
-
-        categoryListView.setOnItemClickListener { adapterView, view, position, id ->
-            val category = DataService.categories[position]
-            longToast("Yo cliecked on  the ${category.title} item") // anko library
-        }
+        layoutManager = LinearLayoutManager(this)
+        categoryListView.layoutManager = layoutManager
+        categoryListView.setHasFixedSize(true)
 
 
     }
